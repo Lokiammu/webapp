@@ -1,0 +1,57 @@
+version: "3.0"
+intents:
+  - greet
+  - goodbye
+  - thank_you
+  - ask_echallan_status
+  - ask_ecourts_case_status
+  - ask_legal_aid
+  - ask_filing_process
+  - ask_office_timings
+  - ask_location
+  - ask_help
+
+
+entities:
+  - challan_id
+  - case_id
+  - city
+  - department
+  - time
+slots:
+  challan_id:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: challan_id
+  case_id:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: case_id
+
+actions:
+  - action_check_echallan_status
+  - action_check_case_status
+
+responses:
+  utter_greet:
+    - text: "Hello! How can I assist you today?"
+  utter_goodbye:
+    - text: "Goodbye! Have a great day!"
+  utter_thank_you:
+    - text: "You're welcome!"
+  utter_ask_echallan_status:
+    - text: "Please provide your e-Challan ID to check the status."
+  utter_ask_ecourts_case_status:
+    - text: "Can you share your case ID to track the case status?"
+  utter_ask_legal_aid:
+    - text: "You can access free legal aid from [Legal Services Authorities](https://nalsa.gov.in)."
+  utter_ask_filing_process:
+    - text: "You can file your case through the e-Courts portal. Would you like the link?"
+  utter_ask_office_timings:
+    - text: "Our office is open from 9 AM to 5 PM, Monday to Friday."
+  utter_ask_location:
+    - text: "We are located at the Department of Justice, Ministry of Law and Justice, New Delhi."
+  utter_ask_help:
+    - text: "How may I assist you today? You can ask about e-Challan, e-Courts, or legal aid."

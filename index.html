@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department of Justice</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header id="main-header">
+        <div class="left-section">
+            <img src="https://cdn.thewire.in/wp-content/uploads/2022/07/17161111/Screenshot-2022-07-17-at-4.10.06-PM-1024x796.png" alt="Department of Justice Logo" id="justice-logo"> <!-- Department Logo -->
+            <div class="header-text">
+                <h2>न्याय विभाग</h2>
+                <h1>DEPARTMENT OF JUSTICE</h1>
+                <p>सत्यमेव जयते</p>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2i0KxHjvI0KaT0sV5OaCh-rNq-gNaMRNYDw&s.png" alt="G20 Logo" id="g20-logo"> <!-- G20 Logo -->
+            <img src="https://img.etimg.com/thumb/width-420,height-315,imgsize-11730,resizemode-75,msid-87304823/news/india/centre-asks-media-organisations-to-display-logo-of-azadi-ka-amrit-mahotsav/azadi-ka-amrit-mahotsav.jpg" alt="Azadi Ka Amrit Mahotsav Logo" id="amrit-logo"> <!-- Azadi Ka Amrit Mahotsav Logo -->
+        </div>
+    </header>
+
+    <!-- Taskbar -->
+    <nav id="taskbar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Administration of Justice</a></li>
+            <li><a href="#">National Mission</a></li>
+        </ul>
+    </nav>
+
+    <!-- Video at Bottom Left -->
+    <div id="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/glVqnmGmp2k?si=U6YZn-3seZTXm6VC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
+    <!-- Chatbot Button -->
+    <div id="chatbot">
+        <button id="chatbot-btn" onclick="toggleChat()">Chat with us!</button>
+
+        <!-- Chat Window -->
+        <div id="chat-window" class="chatbox">
+            <div id="chat-header">
+                <h2>DoJ</h2>
+                <span id="close-btn" onclick="toggleChat()">x</span>
+            </div>
+
+            <div id="chat-content">
+                <!-- Chat messages will appear here -->
+                <div id="chat-messages"></div>
+
+                <!-- Buttons for e-Challan, FAQs, e-Courts, and Clear Chat -->
+                <div id="chat-buttons">
+                    <button onclick="openLink('echallan')">e-Challan</button>
+                    <button onclick="showFAQs()">FAQs</button>
+                    <button onclick="openLink('ecourts')">e-Courts</button>
+                    <button onclick="clearChat()">Clear Chat</button> <!-- New Clear Chat Button -->
+                </div>
+            </div>
+
+            <div id="chat-input">
+                <input type="text" id="user-input" placeholder="Type your message..." onkeydown="if (event.key === 'Enter') sendMessage()" />
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to toggle chatbot visibility
+        // JavaScript to toggle chatbot visibility
+function toggleChat() {
+    const chatWindow = document.getElementById('chat-window');
+    chatWindow.style.display = chatWindow.style.display === 'block' ? 'none' : 'block';
+}
+
+// Function to open links for e-Challan and e-Courts
+function openLink(type) {
+    let url;
+    if (type === 'echallan') {
+        url = 'https://echallan.parivahan.gov.in'; // Link to e-Challan portal
+    } else if (type === 'ecourts') {
+        url = 'https://ecourts.gov.in'; // Link to e-Courts portal
+    }
+    window.open(url, '_blank');
+}
+
+// Function to show FAQs
+function showFAQs() {
+    const chatMessages = document.getElementById('chat-messages');
+    const faqMessageDiv = document.createElement('div');
+    faqMessageDiv.className = 'bot-message';
+    faqMessageDiv.innerHTML = `<p>Here are some FAQs you might find helpful:</p>
+                               <ul>
+                                   <li>How to track case status?</li>
+                                   <li>How to pay e-Challan online?</li>
+                                   <li>Where can I get legal aid?</li>
+                               </ul>`;
+    chatMessages.appendChild(faqMessageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll
+}
+
+// Function to send message
+async function sendMessage() {
+        const userMessage = document.getElementById('user-input').value;
+        if (userMessage.trim()) {
+            const chatMessages = document.getElementById('chat-messages');
+            
+            // Display the user's message
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'user-message';
+            userMessageDiv.innerHTML = `<p>${userMessage}</p>`;
+            chatMessages.appendChild(userMessageDiv);
+            
+            // Clear the input field
+            document.getElementById('user-input').value = '';
+            
+            // Scroll to the latest message
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Send the message to the Rasa server
+            const response = await fetch('http://localhost:5005/webhooks/rest/webhook', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ sender: 'user', message: userMessage }),
+            });
+
+            const botResponses = await response.json();
+
+            // Display the bot's response
+            botResponses.forEach((botResponse) => {
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.className = 'bot-message';
+                botMessageDiv.innerHTML = `<p>${botResponse.text}</p>`;
+                chatMessages.appendChild(botMessageDiv);
+            });
+
+            // Scroll to the latest message after bot response
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    }
+
+    // Trigger sendMessage when Enter key is pressed
+    document.getElementById('user-input').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+// Function to clear chat
+function clearChat() {
+    const chatMessages = document.getElementById('chat-messages');
+    chatMessages.innerHTML = ''; // Clear all messages
+    document.getElementById('user-input').value = ''; // Reset input field
+}
+
+    </script>
+
+</body>
+</html>

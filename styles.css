@@ -1,0 +1,239 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Header Styling */
+#main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: #f8f8f8;
+    border-bottom: 2px solid #ccc;
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+}
+
+#justice-logo {
+    width: 95px;
+    height: 125px;
+    margin-right: 20px;
+}
+
+.header-text h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.header-text h1 {
+    font-size: 35px;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.header-text p {
+    font-size: 20px;
+    color: #666;
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+}
+
+#g20-logo, #amrit-logo {
+    width: 250px;
+    height: 150px;
+    margin-left: 20px;
+}
+
+/* Taskbar Styling */
+#taskbar {
+    background-color: #f1f1f1;
+    border-top: 1px solid #ccc;
+}
+
+#taskbar ul {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    list-style-type: none;
+}
+
+#taskbar ul li {
+    margin-right: 20px;
+}
+
+#taskbar ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #333;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+}
+
+#taskbar ul li a:hover {
+    background-color: #0084ff;
+    color: #fff;
+    border-radius: 5px;
+}
+
+
+h1 {
+    font-size: 40px;
+    color: #333;
+}
+
+/* Video Container */
+#video-container {
+    position: fixed;
+    bottom: 50px;
+    left: 30px;
+}
+
+#intro-video {
+    width: 700px;
+    height: 400px;
+}
+
+/* Chatbot Button */
+#chatbot-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #0084ff;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#chatbot-btn:hover {
+    background-color: #006dbf;
+}
+
+/* Chat Window */
+#chat-window {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 350px;
+    height: 400px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 1000;
+}
+
+#chat-header {
+    background-color: #0084ff;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chat-header h2 {
+    font-size: 18px;
+}
+
+#close-btn {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#chat-content {
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+    background-color: #fff;
+}
+
+#chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Chat Messages */
+.user-message, .bot-message {
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background-color: #e1ffc7;
+    align-self: flex-end;
+}
+
+.bot-message {
+    background-color: #f1f1f1;
+    align-self: flex-start;
+}
+
+/* Input Box */
+#chat-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+#chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+#chat-input button {
+    background-color: #0084ff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#chat-input button:hover {
+    background-color: #006dbf;
+}
+
+/* Chat Buttons */
+#chat-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+#chat-buttons button {
+    background-color: #0084ff;
+    color: white;
+    border: none;
+    padding: 3px;
+    border-radius: 15px;
+    cursor: pointer;
+    width: 70px;
+}
+
+#chat-buttons button:hover {
+    background-color: #006dbf;
+}
